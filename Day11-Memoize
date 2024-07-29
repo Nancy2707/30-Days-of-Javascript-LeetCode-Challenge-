@@ -1,0 +1,32 @@
+function memoize(fn) {
+    const cache = new Map();
+    return function(...args) {
+        const key = JSON.stringify(args);
+        if (!cache.has(key)) {
+            cache.set(key, fn(...args));
+        }
+        return cache.get(key);
+    };
+}
+
+// Memoized sum function
+function sum(a, b) {
+    return a + b;
+}
+
+// Memoized Fibonacci function
+function fib(n) {
+    if (n <= 1) return 1;
+    return fib(n - 1) + fib(n - 2);
+}
+
+// Memoized factorial function
+function factorial(n) {
+    if (n <= 1) return 1;
+    return factorial(n - 1) * n;
+}
+
+// Create memoized versions of the functions
+const memoizedSum = memoize(sum);
+const memoizedFib = memoize(fib);
+const memoizedFactorial = memoize(factorial);
