@@ -1,0 +1,13 @@
+/**
+ * @param {Promise} promise1
+ * @param {Promise} promise2
+ * @return {Promise}
+ */
+var addTwoPromises = async function(promise1, promise2) {
+    // Wait for both promises to resolve
+    const result1 = await promise1;
+    const result2 = await promise2;
+    
+    // Return a new promise that resolves with the sum of the results
+    return result1 + result2;
+};
