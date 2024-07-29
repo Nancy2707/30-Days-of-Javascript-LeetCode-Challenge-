@@ -1,0 +1,25 @@
+/**
+ * @param {Function} fn - The function to be executed repeatedly.
+ * @param {Array} args - The arguments to pass to the function `fn`.
+ * @param {number} t - The interval time in milliseconds between repeated executions.
+ * @return {Function} - The cancel function `cancelFn`.
+ */
+var cancellable = function(fn, args, t) {
+    let intervalId; // Variable to keep track of the interval ID
+
+    // Immediately execute the function `fn`
+    fn(...args);
+
+    // Start the interval to repeatedly execute the function `fn` every `t` milliseconds
+    intervalId = setInterval(() => {
+        fn(...args);
+    }, t);
+
+    // Define the cancel function
+    const cancelFn = () => {
+        clearInterval(intervalId); // Clear the interval to stop repeated executions
+    };
+
+    // Set a timeout to invoke `cancelFn` after `cancelTimeMs` milliseconds
+    return cancelFn;
+};
