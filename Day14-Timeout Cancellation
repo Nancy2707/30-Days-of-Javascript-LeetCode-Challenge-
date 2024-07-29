@@ -1,0 +1,25 @@
+/**
+ * @param {Function} fn - The function to be executed after the delay.
+ * @param {Array} args - The arguments to pass to the function `fn`.
+ * @param {number} t - The initial delay in milliseconds before the function `fn` is executed.
+ * @return {Function} - The cancel function `cancelFn`.
+ */
+var cancellable = function(fn, args, t) {
+    // Variable to keep track of the timeout ID
+    let timeoutId;
+
+    // Set up the function to be executed after delay `t`
+    const delayedExecution = () => {
+        fn(...args);
+    };
+
+    // Schedule the function `fn` to be executed after `t` milliseconds
+    timeoutId = setTimeout(delayedExecution, t);
+
+    // Define the cancel function
+    const cancelFn = () => {
+        clearTimeout(timeoutId); // Clear the timeout if cancelFn is invoked
+    };
+
+    return cancelFn;
+};
