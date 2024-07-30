@@ -1,0 +1,9 @@
+/**
+ * @param {Array} arr - The array to be sorted.
+ * @param {Function} fn - The function that determines the sort order.
+ * @return {Array} - The sorted array.
+ */
+var sortBy = function(arr, fn) {
+    // Use the Array.prototype.sort method with a comparison function
+    return arr.sort((a, b) => fn(a) - fn(b));
+};
