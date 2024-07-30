@@ -1,0 +1,23 @@
+/**
+ * Merges two arrays of objects based on the `id` field and sorts the result by `id`.
+ * @param {Array<Object>} 
+ * @param {Array<Object>} 
+ * @return {Array<Object>} 
+ */
+var join = function(arr1, arr2) {
+    // Create a map to store objects by their id
+    const map = new Map();
+    
+    // Helper function to add objects to the map
+    const addToMap = (arr) => {
+        arr.forEach(obj => {
+          map.set(obj.id, { ...map.get(obj.id), ...obj });
+        });
+    };
+    
+    addToMap(arr1);
+    addToMap(arr2);
+    const result = Array.from(map.values()).sort((a, b) => a.id - b.id);
+    
+    return result;
+};
