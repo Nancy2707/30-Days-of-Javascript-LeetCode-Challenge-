@@ -1,0 +1,42 @@
+class EventEmitter {
+    constructor() {
+        this.events = new Map();
+    }
+
+    /**
+     * Subscribe to an event with a callback function.
+     * @param {string} eventName 
+     * @param {Function} callback 
+     * @return {Object} 
+     */
+    subscribe(eventName, callback) {
+        if (!this.events.has(eventName)) {
+            this.events.set(eventName, []);
+        }
+        
+        const callbacks = this.events.get(eventName);
+        callbacks.push(callback);
+        return {
+            unsubscribe: () => {
+                const index = callbacks.indexOf(callback);
+                if (index !== -1) {
+                    callbacks.splice(index, 1);
+                }
+            }
+        };
+    }
+
+    /**
+     * Emit an event with optional arguments.
+     * @param {string} eventName 
+     * @param {Array} [args] 
+     * @return {Array} 
+     */
+    emit(eventName, args = []) {
+        const callbacks = this.events.get(eventName);
+        if (!callbacks) {
+            return [];
+        }
+        return callbacks.map(callback => callback(...args));
+    }
+}
