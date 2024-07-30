@@ -1,0 +1,27 @@
+/**
+ * Compact an object by removing keys with falsy values.
+ * @param {Object|Array} obj 
+ * @return {Object|Array} 
+ */
+var compactObject = function(obj) {
+    if (Array.isArray(obj)) {
+        return obj
+            .map(compactObject)
+            .filter(item => Boolean(item));
+    }
+    
+    // Base case: if obj is an object (but not null)
+    if (obj !== null && typeof obj === 'object') {
+        const result = {};
+        
+        for (const [key, value] of Object.entries(obj)) {
+            const compactedValue = compactObject(value);
+            if (Boolean(compactedValue)) {
+                result[key] = compactedValue;
+            }
+        }
+        
+        return result;
+    }
+    return obj;
+};
