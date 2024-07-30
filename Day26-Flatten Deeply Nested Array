@@ -1,0 +1,27 @@
+/**
+ * Flattens a multi-dimensional array up to a specific depth.
+ * @param {Array} arr 
+ * @param {number} depth
+ * @return {Array}
+ */
+var flat = function(arr, depth) {
+    function flatten(array, currentDepth) {
+        if (currentDepth >= depth) {
+            return array.slice(); 
+        }
+        
+        // Result array
+        let result = [];
+        
+        for (const item of array) {
+            if (Array.isArray(item)) {
+                result.push(...flatten(item, currentDepth + 1));
+            } else {
+                result.push(item);
+            }
+        }
+        
+        return result;
+    }
+    return flatten(arr, 0);
+};
